@@ -3,6 +3,7 @@
 use App\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Route;
 
 /*
 |--------------------------------------------------------------------------
@@ -20,7 +21,7 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
 });
 
 Route::get('articles',"ArticleController@getAllArticle")->name('getAllArticle');
-Route::get('articles/{id}',"ArticleController@getArticle")->name('getArticle');
+Route::get('articles/{article}',"ArticleController@getArticle")->name('getArticle');
 Route::post('articles/{id}',"ArticleController@createArticales")->name('createArticales');
 Route::put('articles/{id}',"ArticleController@updateArticle")->name('updateArticle');
 Route::delete('articles/{id}',"ArticleController@deleteArticle")->name('deleteArticle');
