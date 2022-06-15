@@ -6,39 +6,32 @@ use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Str;
 
-/*
-|--------------------------------------------------------------------------
-| API Routes
-|--------------------------------------------------------------------------
-|
-| Here is where you can register API routes for your application. These
-| routes are loaded by the RouteServiceProvider within a group which
-| is assigned the "api" middleware group. Enjoy building your API!
-|
-*/
+
+
 
 Route::middleware('auth:api')->get('/user', function (Request $request) {
     return $request->user();
 });
 
-Route::get('articles', "ArticleController@getAllArticle")->name('getAllArticle');
-Route::get('articles/{article}', "ArticleController@getArticle")->name('getArticle');
+Route::get('articles', "ArticleController@getAllArticle");
+Route::get('articles/{article}', "ArticleController@getArticle");
 
 // to protect a group of api route
 Route::middleware('auth:api')->group(function () {
 
-    Route::put('articles/{id}', "ArticleController@updateArticle")->name('updateArticle');
-    Route::delete('articles/{id}', "ArticleController@deleteArticle")->name('deleteArticle');
+    Route::put('articles/{article}', "ArticleController@updateArticle");
+    Route::delete('articles/{article}', "ArticleController@deleteArticle");
 });
 // similerly to protect a single api route. Both are same
-Route::post('articles', "ArticleController@createArticales")->name('createArticales')->middleware('auth:api');
+Route::post('articles', "ArticleController@createArticales");
 
 
 // to ger access authenticated api without authenticate (on your browser user after api/user?api_token=your api token)
-Route::middleware('auth:api')->get('/user', function(Request $request) {
+Route::middleware('auth:api')->get('/user', function (Request $request) {
     return $request->user();
 });
 
+Route::post('/tokenn', "UserController@generateToken");
 
 
 Route::get('/create', function () {

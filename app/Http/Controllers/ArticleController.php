@@ -37,4 +37,35 @@ class ArticleController extends Controller
         $article->save();
         return $article;
     }
+
+    function updateArticle(Request $request, Article $article)
+    {
+        $user = $request->user();
+
+        if ($user->id != $article->user_id) {
+            return response()->json(["Error" => "You dont't have permission to edit this article"], 404);
+        } else {
+
+            $title = $request->title;
+            $content = $request->content;
+
+            $article->title = $title;
+            $article->content = $content;
+            $article->save();
+
+            return $article;
+        }
+    }
+    function deleteArticle(Request $request, Article $article)
+    {
+        $user = $request->user();
+
+        if ($user->id != $article->user_id) {
+            return response()->json(["Error" => "You dont't have permission to delete this article"], 404);
+        } else {
+
+            $article->delete();
+            return response()->json(["Success" => "Article deleletion completed"], 200);
+        }
+    }
 }
